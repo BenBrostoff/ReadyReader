@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727184803) do
+ActiveRecord::Schema.define(version: 20140728202136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bookmarks", ["book_id"], name: "index_bookmarks_on_book_id", using: :btree
+  add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id", using: :btree
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -38,32 +49,6 @@ ActiveRecord::Schema.define(version: 20140727184803) do
 
   add_index "comments", ["book_id"], name: "index_comments_on_book_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
-
-  create_table "restaurants", force: true do |t|
-    t.string   "camis"
-    t.string   "dba"
-    t.string   "boro"
-    t.string   "building"
-    t.string   "street"
-    t.string   "zipcode"
-    t.string   "phone"
-    t.string   "cuisinecode"
-    t.string   "inspdate"
-    t.string   "action"
-    t.string   "violcode"
-    t.string   "score"
-    t.string   "currentgrade"
-    t.string   "gradedate"
-    t.string   "recorddate"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.float    "lat"
-    t.float    "long"
-    t.float    "coord1"
-    t.float    "coord2"
-  end
-
-  add_index "restaurants", ["zipcode", "currentgrade"], name: "index_restaurants_on_zipcode_and_currentgrade", using: :btree
 
   create_table "user_books", force: true do |t|
     t.integer  "farthest_point", default: 0

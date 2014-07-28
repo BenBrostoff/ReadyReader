@@ -3,7 +3,8 @@ class CreateBookmarks < ActiveRecord::Migration
     create_table :bookmarks do |t|
       t.belongs_to :user, index: true
       t.belongs_to :book, index: true
-      t.integer :position
+      t.integer :position_begin
+      t.integer :position_end
 
       t.timestamps
     end

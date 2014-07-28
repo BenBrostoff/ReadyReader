@@ -3,6 +3,11 @@ class BooksController < ApplicationController
   before_filter :check_for_mobile
   before_filter :prepare_for_mobile
   respond_to :json
+
+  def initialize_tokenizer
+
+  end
+
   def show
     @book = Book.find(params[:id])
     @sentences = @book.sentences
@@ -36,6 +41,14 @@ class BooksController < ApplicationController
     book = Book.create(title: params[:title], content: content)
     @user.books << book
     redirect_to profile_path(@user)
+  end
+
+  def bookmark
+    position = params['position'].to_i
+    Bookmark.create(position: position, user_id: session[:user], book_id: session[:book])
+
+    bookmarks = Bookmark.find(user_id: session[:user], book_id: session[:book])
+    #bookmarks.each do
   end
 
   def check_point
