@@ -1,6 +1,8 @@
 class Book < ActiveRecord::Base
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+
   before_save :sentence_parse
   before_save :long_parse
 

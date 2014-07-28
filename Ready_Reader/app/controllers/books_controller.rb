@@ -62,7 +62,7 @@ class BooksController < ApplicationController
     p "*" * 100
     p "TEST"
     p @user_book.farthest_point
-    render json: {farthest_point: save_point}.to_json
+    render json: {farthest_point: save_point, test: [1,2,3,4,5]}.to_json
   end
 
   def create
